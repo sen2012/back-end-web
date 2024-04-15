@@ -1,0 +1,14 @@
+@startuml
+
+left to right direction
+skinparam packageStyle rectangle
+actor User as U
+rectangle "Login System" {
+  usecase "Tạo JWT" as CreateJWT
+  usecase "Xác thực JWT" as VerifyJWT
+}
+
+U -- CreateJWT : Thực hiện đăng nhập và tạo JWT
+U -- VerifyJWT : Xác thực JWT
+
+@enduml

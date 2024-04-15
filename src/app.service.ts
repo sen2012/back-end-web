@@ -6,9 +6,6 @@ import { PrismaService } from "./prisma.service";
 export class AppService {
   constructor(private prisma: PrismaService) {}
 
-  getHello(): string {
-    return "Xin chào anh Bình Minh";
-  }
 
   async user(id: number): Promise<User | null> {
     return this.prisma.user.findUnique({

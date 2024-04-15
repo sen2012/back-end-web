@@ -1,0 +1,19 @@
+@startuml
+skinparam monochrome true
+
+actor User as U
+participant "Signup Form" as SF
+participant "Backend Server" as BS
+
+U -> SF: Visit Signup Page
+activate SF
+SF -> U: Render Signup Form
+U -> SF: Fill in Details
+U -> SF: Submit Form
+SF -> BS: POST request with user details
+activate BS
+BS --> SF: Verify user details
+SF --> U: Redirect to Success/Failure Page
+deactivate BS
+deactivate SF
+@enduml
