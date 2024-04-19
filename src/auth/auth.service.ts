@@ -1,7 +1,7 @@
 import { ForbiddenException, Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
 import * as argon from 'argon2';
-import { AuthDto } from './dto';
+import { AuthDto, RegisterDto } from './dto';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
 
@@ -14,20 +14,25 @@ export class AuthService {
 
     }
 
-    async register(authDto: AuthDto){
-        const hashedPassword = await argon.hash(authDto.password)
+    async register(registerDto: RegisterDto){
+        const hashedPassword = await argon.hash(registerDto.password)
 
         try{
             const user = await this.prismaService.user.create({
                 data:{
-                    email: authDto.email,
+                    email: registerDto.email,
                     password: hashedPassword,
-                    name: authDto.name
+                    name: registerDto.name,
+                    province: registerDto.province,
+                    phone: registerDto.phone,
+                    address: registerDto.address,
+                    create_at: new Date,
+                    role_id: 1
                 },
                 select:{
                     id: true,
                     email: true,
-                    name: true
+                    name: true,
                 }
             })
             return await this.signJwtToken(user.id, user.email)

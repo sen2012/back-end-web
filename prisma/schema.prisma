@@ -8,15 +8,23 @@ datasource db {
 }
 
 model User {
-  id       Int     @id @default(autoincrement())
-  email    String  @unique
-  password String
-  name     String?
-  address  String?
-  phone    String?
-  province String?
-  orederdetail OrderDetail[]
-  posts    Post[]
+  id        Int       @id @default(autoincrement())
+  email     String    @unique
+  password  String
+  name      String?
+  address   String?
+  phone     String?
+  province  String?
+  create_at DateTime?
+  role_id   Int?
+  role      Role?     @relation(fields: [role_id], references: [id])
+  order     Order[]
+}
+
+model Role {
+  id        Int     @id @default(autoincrement())
+  role_name String?
+  user      User[]
 }
 
 model Post {
@@ -24,65 +32,55 @@ model Post {
   title     String
   content   String?
   published Boolean? @default(false)
-  authorId  Int?
-  author    User?    @relation(fields: [authorId], references: [id])
 }
 
 model Categories {
-  id           Int    @id @default(autoincrement())
-  categoryName String
-  description  String
-  product Product[]
-}
-
-model Employee {
-  id       Int      @id @default(autoincrement())
-  name     String
-  birthday DateTime?
-  address  String?
-  phone    String?
-  email    String?
-  password String?
-  role String
+  id            Int       @id @default(autoincrement())
+  category_name String
+  description   String
+  product       Product[]
 }
 
 model Product {
-  id Int @id @default(autoincrement())
-  productName String
-  description String
-  price Float
-  photo String
-  unit String
-  categoryId Int?
-  order Order[]
-  category Categories? @relation(fields: [categoryId], references: [id])
-}
-
-model Shipper {
-  id Int @id @default(autoincrement())
-  name String
-  phone String
-  orderdetail OrderDetail[]
+  id           Int           @id @default(autoincrement())
+  product_name String
+  description  String
+  price        Float
+  photo        String
+  unit         String
+  create_at    DateTime?
+  category_id  Int?
+  order_detail OrderDetail[]
+  category     Categories?   @relation(fields: [category_id], references: [id])
 }
 
 model Order {
-  id Int @id @default(autoincrement())
-  price Float
-  quantity Int
-  productId Int
-  product Product? @relation(fields: [productId], references: [id])
+  id              Int          @id @default(autoincrement())
+  payment_id      Int
+  order_time      DateTime?
+  create_at       DateTime?
+  modified_at     DateTime?
+  Status          Int?
+  user_id         Int
+  order_detail_id Int?
+  order_detail    OrderDetail? @relation(fields: [order_detail_id], references: [id])
+  user            User?        @relation(fields: [user_id], references: [id])
+  payment         Payment?     @relation(fields: [payment_id], references: [id])
 }
 
 model OrderDetail {
-  id Int @id @default(autoincrement())
-  orderTime DateTime?
-  deliveryProvince String?
-  deliveryAddress String?
-  shippedTime DateTime? 
-  finishedTime DateTime?
-  Status Int?
-  shipperId Int?
-  userId Int?
-  user User? @relation(fields: [userId], references: [id])
-  shipper Shipper? @relation(fields: [shipperId], references: [id])
+  id         Int      @id @default(autoincrement())
+  price      Float
+  quantity   Int
+  product_id Int
+  order      Order[]
+  product    Product? @relation(fields: [product_id], references: [id])
+}
+
+model Payment {
+  id             Int       @id @default(autoincrement())
+  amount         Float
+  payment_method String
+  paymment_date  DateTime?
+  order          Order[]
 }

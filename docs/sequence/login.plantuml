@@ -1,14 +1,28 @@
 @startuml
+participant User
+participant Client
+participant Server
+participant Database
 
-left to right direction
-skinparam packageStyle rectangle
-actor User as U
-rectangle "Login System" {
-  usecase "Tạo JWT" as CreateJWT
-  usecase "Xác thực JWT" as VerifyJWT
-}
+User -> Client: Cung cấp thông tin đăng nhập
+Client -> Server: Yêu cầu đăng nhập (username, password)
+Server -> Database: Truy vấn thông tin đăng nhập
+Database --> Server: Trả về thông tin người dùng (username, password hash)
+Server --> Client: Mã JWT (Token)
+Client -> User: Đăng nhập thành công
 
-U -- CreateJWT : Thực hiện đăng nhập và tạo JWT
-U -- VerifyJWT : Xác thực JWT
+alt Token hết hạn
+    User -> Client: Thực hiện yêu cầu
+    Client -> Server: Gửi lại token hết hạn
+    Server -> Client: Yêu cầu đăng nhập lại
+    Client -> User: Hiển thị form đăng nhập
+end
+
+alt Token không hợp lệ
+    User -> Client: Thực hiện yêu cầu
+    Client -> Server: Gửi token không hợp lệ
+    Server -> Client: Yêu cầu đăng nhập lại
+    Client -> User: Hiển thị form đăng nhập
+end
 
 @enduml
