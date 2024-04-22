@@ -1,3 +1,13 @@
 {
-
+    "tabWidth": 4,
+    "useTabs": true,
+    "plugins": ["prettier-plugins-typescript"],
+    "overrides": [
+        {
+            "files": "*.ts",
+            "options": {
+                "parser": "typescript"
+            }
+        }
+    ]
 }

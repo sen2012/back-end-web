@@ -1,0 +1,16 @@
+@startuml
+actor Manufacturer
+participant Plant
+participant Product
+
+Manufacturer -> Plant: RequestCreateProduct()
+activate Plant
+Plant -> Plant: CheckAvailability()
+alt Raw materials available
+    Plant -> Plant: CreateProduct()
+    Plant --> Manufacturer: NotifyProductCreated()
+else Raw materials not available
+    Plant --> Manufacturer: NotifyMaterialsUnavailable()
+end
+
+@enduml
