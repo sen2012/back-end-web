@@ -1,16 +1,16 @@
 @startuml
-actor Manufacturer
+actor Admin
 participant Plant
 participant Product
 
-Manufacturer -> Plant: RequestCreateProduct()
+Admin -> Plant: RequestCreateProduct()
 activate Plant
 Plant -> Plant: CheckAvailability()
 alt Raw materials available
     Plant -> Plant: CreateProduct()
-    Plant --> Manufacturer: NotifyProductCreated()
+    Plant --> Admin: NotifyProductCreated()
 else Raw materials not available
-    Plant --> Manufacturer: NotifyMaterialsUnavailable()
+    Plant --> Admin: NotifyMaterialsUnavailable()
 end
 
 @enduml

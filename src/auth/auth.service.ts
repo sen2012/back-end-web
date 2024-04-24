@@ -1,9 +1,10 @@
 import { ForbiddenException, Injectable } from "@nestjs/common";
 import { PrismaService } from "src/prisma.service";
 import * as argon from "argon2";
-import { AuthDto, RegisterDto } from "./dto";
+import { AdminRegisterDto, AuthDto, ChangePasswordDto, RegisterDto } from "./dto";
 import { JwtService } from "@nestjs/jwt";
 import { ConfigService } from "@nestjs/config";
+import { User } from "@prisma/client";
 
 @Injectable()
 export class AuthService {
@@ -13,6 +14,7 @@ export class AuthService {
     private configService: ConfigService,
   ) {}
 
+  //user login
   async register(registerDto: RegisterDto) {
     const hashedPassword = await argon.hash(registerDto.password);
 
@@ -42,6 +44,44 @@ export class AuthService {
     }
   }
 
+    //admin register
+    async registerAdmin(adminRegisterDto: AdminRegisterDto) {
+      const hashedPassword = await argon.hash(adminRegisterDto.password);
+  
+      try {
+        const user = await this.prismaService.user.create({
+          data: {
+            email: adminRegisterDto.email,
+            password: hashedPassword,
+            name: adminRegisterDto.name,
+            province: adminRegisterDto.province,
+            phone: adminRegisterDto.phone,
+            address: adminRegisterDto.address,
+            create_at: new Date(),
+            role_id: 2,
+          },
+          select: {
+            id: true,
+            email: true,
+            name: true,
+          },
+        });
+        return await this.signJwtToken(user.id, user.email);
+      } catch (error) {
+        if (error.code == "P2002") {
+          throw new ForbiddenException("Email already exists");
+        }
+      }
+    }
+
+  async validateUser(email: string, password: string): Promise<User> {
+    const user = await this.prismaService.user.findUnique({ where: { email } });
+    if (user && user.password === password) {
+      return user;
+    }
+    return null;
+  }
+
   async login(authDto: AuthDto) {
     const user = await this.prismaService.user.findUnique({
       where: {
@@ -55,10 +95,12 @@ export class AuthService {
     if (!passwordMatched) {
       throw new ForbiddenException("Incorrect password");
     }
-    delete user.password;
 
     return await this.signJwtToken(user.id, user.email);
   }
+
+  
+
   async signJwtToken(
     userId: number,
     email: string,

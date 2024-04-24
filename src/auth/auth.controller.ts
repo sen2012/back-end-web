@@ -1,6 +1,6 @@
 import { Body, Controller, Post } from "@nestjs/common";
 import { AuthService } from "./auth.service";
-import { AuthDto, RegisterDto } from "./dto";
+import { AdminRegisterDto, AuthDto, RegisterDto } from "./dto";
 import { ApiResponse, ApiTags } from "@nestjs/swagger";
 
 @ApiTags("Auth")
@@ -18,5 +18,10 @@ export class AuthController {
   @ApiResponse({ status: 404, description: "Login fail" })
   login(@Body() authDto: AuthDto) {
     return this.authService.login(authDto);
+  }
+
+  @Post("admin-register")
+  adminRegister(@Body() adminRegisterDto: AdminRegisterDto){
+    return this.authService.registerAdmin(adminRegisterDto)
   }
 }

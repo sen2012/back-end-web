@@ -31,6 +31,7 @@ model Post {
   id        Int      @id @default(autoincrement())
   title     String
   content   String?
+  image     String?
   published Boolean? @default(false)
 }
 
@@ -60,7 +61,7 @@ model Order {
   order_time      DateTime?
   create_at       DateTime?
   modified_at     DateTime?
-  Status          Int?
+  Status          Boolean?
   user_id         Int
   order_detail_id Int?
   order_detail    OrderDetail? @relation(fields: [order_detail_id], references: [id])

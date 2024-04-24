@@ -9,7 +9,7 @@ import {
   Put,
 } from "@nestjs/common";
 import { ApiBearerAuth, ApiTags } from "@nestjs/swagger";
-import { CreateCategoryDto } from "src/auth/dto";
+import { CreateCategoryDto, UpdateCategoryDto } from "src/auth/dto";
 import { CategoryService } from "./category.service";
 import { Categories } from "@prisma/client";
 
@@ -45,11 +45,11 @@ export class CategoryController {
   @Put(":id")
   async updateCategory(
     @Param("id") id: string,
-    @Body() newData: Partial<Categories>,
+    @Body() updateCategoryDto: UpdateCategoryDto,
   ): Promise<Categories> {
     const updatedCategory = await this.categoryService.updateCategory(
       parseInt(id, 10),
-      newData,
+      updateCategoryDto,
     );
     if (!updatedCategory) {
       throw new NotFoundException(`Category with ID ${id} not found`);

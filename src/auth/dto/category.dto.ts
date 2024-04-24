@@ -16,3 +16,19 @@ export class CreateCategoryDto {
   @IsString()
   description: string;
 }
+
+export class UpdateCategoryDto {
+  @ApiProperty({
+    example: "Ram PC",
+  })
+  @IsNotEmpty()
+  @IsString()
+  category_name: string;
+
+  @ApiProperty({
+    example: "lenovo",
+  })
+  @IsNotEmpty()
+  @IsString()
+  description: string;
+}
