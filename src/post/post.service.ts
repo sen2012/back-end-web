@@ -47,4 +47,23 @@ export class PostService {
       }
       return post;
     }
+
+    async deletePost(id: number) {
+      const post = await this.prismaService.post.findUnique({
+        where: { id },
+      });
+      if (!post) {
+        throw new NotFoundException(`Post with ID ${id} not found`);
+      }
+      return this.prismaService.post.delete({ where: { id } });
+    }
+    async searchTitle(title: string){
+      return this.prismaService.post.findMany({
+        where: {
+          title: {
+            contains: title
+          }
+        }
+      })
+    }
 }

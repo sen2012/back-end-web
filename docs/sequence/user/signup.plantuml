@@ -4,14 +4,14 @@ participant Client
 participant Server
 participant Database
 
-User -> Client: Nhập thông tin đăng ký
-Client -> Server: Gửi yêu cầu đăng ký (username, email, password)
-Server -> Database: Kiểm tra thông tin đăng ký
-Database --> Server: Trả về kết quả kiểm tra
-alt Thông tin hợp lệ
-    Server --> Client: Trả về thông báo thành công
-else Thông tin không hợp lệ
-    Server --> Client: Trả về thông báo lỗi
+User -> Client: infor register
+Client -> Server: send register request (username, email, password)
+Server -> Database: Check login information
+Database --> Server: Returns test results
+alt Valid information
+    Server --> Client: Returns a success message
+else Invalid information
+    Server --> Client: Returns an error message
 end
 
 @enduml

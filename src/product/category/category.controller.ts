@@ -67,4 +67,9 @@ export class CategoryController {
     }
     return { message: `Category with ID ${id} has been deleted` };
   }
+
+  @Get('search/:name')
+  async searchName(@Param('name') name: string) {
+    return this.categoryService.searchName(name)
+  }
 }

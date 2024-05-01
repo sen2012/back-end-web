@@ -1,6 +1,6 @@
 import { Body, Controller, Delete, Get, NotFoundException, Param, Post, Put } from "@nestjs/common";
 import { ApiBearerAuth, ApiTags } from "@nestjs/swagger";
-import { CreateProductDto, UpdateProductDto } from "src/auth/dto";
+import { CreateProductDto, FindProductDto, UpdateProductDto } from "src/auth/dto";
 import { ProductService } from "./product.service";
 import { Product } from "@prisma/client";
 
@@ -56,5 +56,11 @@ export class ProductController {
       throw new NotFoundException(`Product with ID ${id} not found`);
     }
     return { message: `Product with ID ${id} has been deleted` };
+  }
+  //tìm kiếm theo tên product
+  @Post('/search')
+  async search(@Body() findProductDto: FindProductDto){
+    const product = await this.productService.searchProduct(findProductDto);
+    return product;
   }
 }

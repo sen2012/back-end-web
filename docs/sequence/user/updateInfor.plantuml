@@ -1,0 +1,13 @@
+@startuml
+actor User
+participant "User Interface" as UI
+participant "Controller" as Controller
+participant "Database" as DB
+
+User -> UI: Enter updated information
+UI -> Controller: Send updated information
+Controller -> DB: Update information
+DB --> Controller: Confirmation
+Controller --> UI: Success message
+UI --> User: Updated information confirmation
+@enduml
