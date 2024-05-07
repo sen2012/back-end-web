@@ -1,24 +1,16 @@
-import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
-import { AuthController } from './auth.controller';
-import { AuthService } from './auth.service';
-import { PrismaService } from '../prisma.service';
-import { JwtModule } from '@nestjs/jwt';
-import { ConfigModule } from '@nestjs/config';
-import { JwtStrategy } from './strategy';
-import * as cors from 'cors';
-import * as express from 'express';
+import { Module } from "@nestjs/common";
+import { AuthController } from "./auth.controller";
+import { AuthService } from "./auth.service";
+import { PrismaService } from "../prisma.service";
+import { JwtModule } from "@nestjs/jwt";
+import { ConfigModule } from "@nestjs/config";
+import { JwtStrategy } from "./strategy";
 
 @Module({
   imports: [JwtModule.register({}), ConfigModule],
   controllers: [AuthController],
   providers: [AuthService, PrismaService, JwtStrategy],
-  exports: [PrismaService]
+  exports: [PrismaService],
 })
-
-export class AuthModule implements NestModule{
-    configure(consumer: MiddlewareConsumer) {
-        const app = express();
-        app.use(cors());
-        consumer.apply(app).forRoutes('*');
-      }
+export class AuthModule  {
 }

@@ -1,0 +1,28 @@
+@startuml
+participant User
+participant Client
+participant Server
+participant Database
+
+User -> Client: Provide login information
+Client -> Server: Requires login (username, password)
+Server -> Database: Query login information
+Database --> Server: Returns user information (username, password hash)
+Server --> Client: Code JWT (Token)
+Client -> User: Login success
+
+alt Tokens expire
+    User -> Client: Fulfill the request
+    Client -> Server: Resend expired tokens
+    Server -> Client: Requires re-login
+    Client -> User: Display login form
+end
+
+alt Invalid token
+    User -> Client: Fulfill the request
+    Client -> Server: Invalid token sent
+    Server -> Client: Requires re-login
+    Client -> User: Display login form
+end
+
+@enduml

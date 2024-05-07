@@ -6,7 +6,6 @@ import { PrismaService } from "./prisma.service";
 export class AppService {
   constructor(private prisma: PrismaService) {}
 
-
   async user(id: number): Promise<User | null> {
     return this.prisma.user.findUnique({
       where: {
