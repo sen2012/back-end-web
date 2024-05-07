@@ -10,6 +10,8 @@ import { CategoryModule } from "./product/category/category.module";
 import { PostModule } from './post/post.module';
 import { OrderModule } from "./orders/order/order.module";
 import { PaymentModule } from './orders/payment/payment.module';
+import { RoleModule } from './users/role/role.module';
+import { OrderdetailModule } from "./orders/orderdetail/orderdetail.module";
 
 @Module({
   imports: [
@@ -21,6 +23,8 @@ import { PaymentModule } from './orders/payment/payment.module';
     PostModule,
     OrderModule,
     PaymentModule,
+    RoleModule,
+    OrderdetailModule,
   ],
   controllers: [AppController],
   providers: [AppService, PrismaService],

@@ -72,4 +72,15 @@ export class UsersController {
   async searchName(@Param('name') name: string){
     return this.usersService.searchName(name)
   }
+
+  @Get("infor/:id")
+  async getProductById(@Param("id") id: string): Promise<User> {
+    const user = await this.usersService.getUserId(
+      parseInt(id, 10),
+    );
+    if (!user) {
+      throw new NotFoundException(`User with ID ${id} not found`);
+    }
+    return user;
+  }
 }

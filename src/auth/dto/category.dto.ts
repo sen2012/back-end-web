@@ -32,3 +32,11 @@ export class UpdateCategoryDto {
   @IsString()
   description: string;
 }
+
+export class SearchDto {
+  @ApiProperty({
+    example: "MSI"
+  })
+  @IsString()
+  category_name: string
+}
