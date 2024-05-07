@@ -50,4 +50,14 @@ export class UsersService {
     });
     return 'Password changed successfully';
   }
+
+  async searchName(name: string){
+    return this.prismaService.user.findMany({
+      where: {
+        name: {
+          contains: name
+        }
+      }
+    })
+  }
 }

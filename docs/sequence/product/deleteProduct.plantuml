@@ -1,0 +1,15 @@
+@startuml
+actor Admin
+participant "Admin Interface" as AdminUI
+participant "Controller" as Controller
+participant "Database" as DB
+
+Admin -> AdminUI: Select product to delete
+AdminUI -> Controller: Send product ID to delete
+Controller -> DB: Retrieve product information
+DB --> Controller: Product information
+Controller -> DB: Delete product
+DB --> Controller: Deletion confirmation
+Controller --> AdminUI: Product deletion success message
+AdminUI --> Admin: Product deletion confirmation
+@enduml

@@ -67,4 +67,9 @@ export class UsersController {
     
     return result;
   }
+
+  @Get('search/:name')
+  async searchName(@Param('name') name: string){
+    return this.usersService.searchName(name)
+  }
 }

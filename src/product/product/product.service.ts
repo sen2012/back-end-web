@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from "@nestjs/common";
 import { Product } from "@prisma/client";
-import { CreateProductDto, UpdateProductDto } from "src/auth/dto";
+import { CreateProductDto, FindProductDto, UpdateProductDto } from "src/auth/dto";
 import { PrismaService } from "src/prisma.service";
 
 @Injectable()
@@ -68,5 +68,22 @@ export class ProductService {
       throw new NotFoundException(`Product with ID ${id} not found`);
     }
     return product;
+  }
+
+  async searchProduct(findProductDto: FindProductDto) {
+    return this.prismaService.product.findMany({
+      where: {
+        product_name: {
+          contains: findProductDto.name, // Tìm kiếm tất cả các sản phẩm có tên chứa đựng phần của chuỗi tìm kiếm
+        },
+        category: {
+          id: findProductDto.categoryId,
+        },
+        price:{
+          gte: findProductDto.minPrice,
+          lte: findProductDto.maxPrice,
+        }
+      },
+    });
   }
 }

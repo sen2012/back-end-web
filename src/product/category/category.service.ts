@@ -53,4 +53,14 @@ export class CategoryService {
     }
     return category;
   }
+
+  async searchName(name: string){
+    return this.prismaService.categories.findMany({
+      where: {
+        category_name: {
+          contains: name
+        }
+      }
+    })
+  }
 }
