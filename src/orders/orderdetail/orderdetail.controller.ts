@@ -24,23 +24,28 @@ export class OrderdetailController {
   @Get('cart')
   async getCart(@Request() req){
     const userId = req.user.id
-    const cart = await this.orderdetailService.getOrder(userId)
+    const cart = await this.orderdetailService.getOrderDetail(userId)
     return cart
   }
 
+  @UseGuards(MyJwtGuard)
   @Put('update' )
-  async updateCart( @Body() updateOrderDetailDto : UpdateOrderDetailDto){
-    return this.orderdetailService.updateCart(updateOrderDetailDto)
+  async updateCart(@Request() req, @Body() updateOrderDetailDto : UpdateOrderDetailDto){
+    const userId = req.user.id
+    const update = await this.orderdetailService.updateCart(userId, updateOrderDetailDto)
+    return update
   }
 
+  @UseGuards(MyJwtGuard)
   @Delete('delete/:id')
-  async deleteOrderDetail(@Param("id") id: string){
-    const OrderDetail = await this.orderdetailService.deleteOrderDetail(
-      parseInt(id, 10),
+  async deleteOrderDetail(@Request() req, @Param("id") detailId: string){
+    const userId = req.user.id
+    const OrderDetail = await this.orderdetailService.deleteOrderDetail(userId,
+      parseInt(detailId, 10)
     );
     if (!OrderDetail) {
-      throw new NotFoundException(`OrderDetail with ID ${id} not found`);
+      throw new NotFoundException(`OrderDetail with ID ${detailId} not found`);
     }
-    return { message: `OrderDetail with ID ${id} has been deleted` };
+    return { message: `OrderDetail with ID ${detailId} has been deleted` };
   }
 }

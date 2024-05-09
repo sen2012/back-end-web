@@ -95,7 +95,6 @@ export class AuthService {
     if (!passwordMatched) {
       throw new ForbiddenException("Incorrect password");
     }
-
     return await this.signJwtToken(user.id, user.email);
   }
   

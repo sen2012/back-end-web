@@ -61,7 +61,7 @@ model Order {
   order_time   DateTime?
   create_at    DateTime?
   modified_at  DateTime?
-  status       Boolean?
+  status       String?
   total        Float?
   user_id      Int
   user         User?         @relation(fields: [user_id], references: [id])
@@ -83,6 +83,6 @@ model Payment {
   id             Int       @id @default(autoincrement())
   amount         Float
   payment_method String
-  paymment_date  DateTime?
+  payment_date  DateTime?
   order          Order[]
 }

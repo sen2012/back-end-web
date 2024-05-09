@@ -58,3 +58,12 @@ export class ChangePasswordDto {
   @MinLength(6)
   confirmNewPassword: string;
 }
+
+export class UpdateRoleDto {
+
+  @ApiProperty({
+    example: "1"
+  })
+  @IsNumber()
+  role_id: number
+}

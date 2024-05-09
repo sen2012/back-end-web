@@ -10,37 +10,78 @@ export class OrderdetailService {
 
     async addToCart(userId: number, create: CreateOrderDetailDto){
       const incompleteOrder = await this.prismaService.order.findFirst({
+        where: {
+          user_id: userId,
+          status: 'incomplete',
+        },
+      });
+    
+      // Kiểm tra xem sản phẩm đã tồn tại trong giỏ hàng chưa
+      const existingOrderDetail = await this.prismaService.orderDetail.findFirst({
+        where: {
+          order_id: incompleteOrder.id,
+          product_id: create.productId,
+        },
+      });
+    
+      if (existingOrderDetail) {
+        // Nếu sản phẩm đã tồn tại, tăng quantity lên 1 và cập nhật lại
+        const updatedOrderDetail = await this.prismaService.orderDetail.update({
           where: {
-            user_id: userId,
-            status: false,
+            id: existingOrderDetail.id,
           },
+          data: {
+            quantity: existingOrderDetail.quantity + 1,
+          },
+        });
+        
+        await this.calculate(incompleteOrder.id);
+    
+        return updatedOrderDetail;
+      } else {
+        // Nếu sản phẩm chưa tồn tại, thêm mới vào giỏ hàng
+        const addNew = await this.prismaService.orderDetail.create({
+          data: {
+            order_id: incompleteOrder.id,
+            price: create.price,
+            quantity: create.quantity,
+            product_id: create.productId,
+          },
+        });
+    
+        await this.calculate(incompleteOrder.id);
+    
+        return addNew;
+      }
+    }
+
+    async calculate(orderId: number) {
+      const orderDetails = await this.prismaService.orderDetail.findMany({
+        where: {
+          order_id: orderId,
+        },
+      });
+  
+      let total = 0;
+      orderDetails.forEach((detail) => {
+        total += detail.quantity * detail.price;
+      });
+  
+      await this.prismaService.order.update({
+        where: { id: orderId },
+        data: { total },
+      });
+    }
+
+    async updateCart(userId: number, updateOrderDetailDto : UpdateOrderDetailDto){
+      const incompleteOrder = await this.prismaService.order.findFirst({
+        where: {
+          user_id: userId,
+          status: 'incomplete',
+        },
       });
 
-      const addNew = await this.prismaService.orderDetail.create({
-        data: {
-          order_id: incompleteOrder.id,
-          price: create.price,
-          quantity: create.quantity,
-          product_id: create.productId
-        }
-      })
-      
-      return addNew
-    }
-
-    async getOrder(userId: number){
-      return this.prismaService.orderDetail.findMany({
-        where: {
-          order: {
-            user_id: userId,
-            status: false
-          }
-        }
-      })
-    }
-    
-    async updateCart( updateOrderDetailDto : UpdateOrderDetailDto){
-      return this.prismaService.orderDetail.update({
+      const updateCartDetail =  await this.prismaService.orderDetail.update({
         where: {
           id: updateOrderDetailDto.id
         },
@@ -48,15 +89,46 @@ export class OrderdetailService {
           quantity: updateOrderDetailDto.quantity,
         },
       });
+
+      if (updateOrderDetailDto.quantity === 0) {
+        await this.prismaService.orderDetail.delete({
+          where: {
+            id: updateOrderDetailDto.id
+          }
+        });
+      }
+      
+      await this.calculate(incompleteOrder.id);
+
+      return updateCartDetail
     }
 
-  async deleteOrderDetail(id: number){
-    const OrderDetail = await this.prismaService.orderDetail.findUnique({
-      where: { id },
-    });
-    if (!OrderDetail) {
-      throw new NotFoundException(`OrderDetail with ID ${id} not found`);
+    async getOrderDetail(userId: number){
+      return this.prismaService.orderDetail.findMany({
+        where: {
+          order: {
+            user_id: userId,
+            status: 'incomplete'
+          }
+        }
+      })
     }
-    return this.prismaService.orderDetail.delete({ where: { id } });
+    
+
+  async deleteOrderDetail(userId: number, detailId: number){
+    const incompleteOrder = await this.prismaService.order.findFirst({
+      where: {
+        user_id: userId,
+        status: 'incomplete',
+      },
+    });
+
+    const deleted = await this.prismaService.orderDetail.delete({
+      where: {
+        id: detailId
+      }
+    })
+    await this.calculate(incompleteOrder.id)
+    return deleted
   }
 }

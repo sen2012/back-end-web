@@ -16,7 +16,7 @@ import { GetUser } from "../auth/decorator/user.decorator";
 import { MyJwtGuard } from "../auth/guard";
 import { ApiBearerAuth, ApiTags } from "@nestjs/swagger";
 import { UsersService } from "./users.service";
-import { ChangePasswordDto, UpdateUserDto } from "src/auth/dto";
+import { ChangePasswordDto, UpdateRoleDto, UpdateUserDto } from "src/auth/dto";
 
 @ApiBearerAuth()
 @ApiTags("Users")
@@ -82,5 +82,16 @@ export class UsersController {
       throw new NotFoundException(`User with ID ${id} not found`);
     }
     return user;
+  }
+
+  @Put("update/:id")
+  async updateRole(@Param("id") id: string,@Body() updateRole: UpdateRoleDto){
+    const user = await this.usersService.updateRole(
+      parseInt(id, 10), updateRole
+    )
+    if (!user) {
+      throw new NotFoundException(`User with ID ${id} not found`);
+    }
+    return user
   }
 }
