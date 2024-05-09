@@ -17,7 +17,7 @@ export class AuthController {
   @ApiResponse({ status: 201, description: "Login success" })
   @ApiResponse({ status: 404, description: "Login fail" })
   login(@Body() authDto: AuthDto) {
-    return this.authService.login(authDto);
+    return this.authService.login( authDto);
   }
 
   @Post("admin-register")

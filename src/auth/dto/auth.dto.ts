@@ -73,7 +73,7 @@ export class AdminRegisterDto {
   email: string;
 
   @ApiProperty({
-    example: "123",
+    example: "123456",
   })
   @IsString()
   @IsNotEmpty()

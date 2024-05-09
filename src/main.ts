@@ -17,6 +17,7 @@ async function bootstrap() {
     .addTag("Post")
     .addTag("Order")
     .addTag("Payment")
+    .addTag("OrderDetail")
     .addBearerAuth()
     .build();
   
