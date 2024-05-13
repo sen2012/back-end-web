@@ -1,0 +1,15 @@
+@startuml
+actor Admin
+participant "Admin Interface" as AdminUI
+participant "Controller" as Controller
+participant "Database" as DB
+
+Admin -> AdminUI: Select cateogry to delete
+AdminUI -> Controller: Send cateogry ID to delete
+Controller -> DB: Retrieve cateogry information
+DB --> Controller: Cateogry information
+Controller -> DB: Delete cateogry
+DB --> Controller: Deletion confirmation
+Controller --> AdminUI: cateogry deletion success message
+AdminUI --> Admin: cateogry deletion confirmation
+@enduml

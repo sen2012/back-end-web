@@ -1,0 +1,16 @@
+@startuml
+actor Admin
+participant Plant
+participant Category
+
+Admin -> Plant: RequestCreateCategory()
+activate Plant
+Plant -> Plant: CheckAvailability()
+alt Raw materials available
+    Plant -> Plant: CreateCategory()
+    Plant --> Admin: NotifyCategoryCreated()
+else Raw materials not available
+    Plant --> Admin: NotifyMaterialsUnavailable()
+end
+
+@enduml

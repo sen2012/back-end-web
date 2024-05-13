@@ -5,7 +5,7 @@ import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { Post as PostDB } from '@prisma/client';
 import { title } from 'process';
 
-@ApiBearerAuth()
+
 @ApiTags("Post")
 @Controller('post')
 export class PostController {

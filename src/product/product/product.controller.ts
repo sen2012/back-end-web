@@ -4,7 +4,7 @@ import { CreateProductDto, FindProductDto, UpdateProductDto } from "src/auth/dto
 import { ProductService } from "./product.service";
 import { Product } from "@prisma/client";
 
-@ApiBearerAuth()
+
 @ApiTags("Product")
 @Controller("product")
 export class ProductController {

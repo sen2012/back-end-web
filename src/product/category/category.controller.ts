@@ -9,11 +9,11 @@ import {
   Put,
 } from "@nestjs/common";
 import { ApiBearerAuth, ApiTags } from "@nestjs/swagger";
-import { CreateCategoryDto, UpdateCategoryDto } from "src/auth/dto";
+import { CreateCategoryDto, SearchNameDto, UpdateCategoryDto } from "src/auth/dto";
 import { CategoryService } from "./category.service";
 import { Categories } from "@prisma/client";
 
-@ApiBearerAuth()
+
 @ApiTags("Category")
 @Controller("category")
 export class CategoryController {
@@ -68,8 +68,8 @@ export class CategoryController {
     return { message: `Category with ID ${id} has been deleted` };
   }
 
-  @Get('search/:name')
-  async searchName(@Param('name') name: string) {
-    return this.categoryService.searchName(name)
+  @Post('search')
+  async searchName(@Body() searchNameDto: SearchNameDto) {
+    return this.categoryService.searchName(searchNameDto)
   }
 }

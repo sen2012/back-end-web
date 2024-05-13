@@ -17,7 +17,11 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
-    "prisma:pull": "prisma db pull"
+    "prisma:pull": "prisma db pull",
+    "seed category": "node dist/seed/category.seed.js",
+    "seed product": "node dist/seed/product.seed.js",
+    "seed role": "node dist/seed/roles.seed.js",
+    "seed user": "node dist/seed/user.seed.js"
   },
   "dependencies": {
     "@nestjs/common": "^10.0.0",
