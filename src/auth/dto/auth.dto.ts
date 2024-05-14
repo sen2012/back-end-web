@@ -27,12 +27,19 @@ export class RegisterDto {
   email: string;
 
   @ApiProperty({
-    example: "123",
+    example: "123456",
   })
   @IsString()
   @IsNotEmpty()
   @MinLength(6)
   password: string;
+
+  @ApiProperty({
+    example: "123456",
+  })
+  @IsString()
+  @IsNotEmpty()
+  confirmPassword: string;
 
   @ApiProperty({
     example: "tue",
@@ -79,6 +86,13 @@ export class AdminRegisterDto {
   @IsNotEmpty()
   @MinLength(6)
   password: string;
+
+  @ApiProperty({
+    example: "123456",
+  })
+  @IsString()
+  @IsNotEmpty()
+  confirmPassword: string;
 
   @ApiProperty({
     example: "tue",

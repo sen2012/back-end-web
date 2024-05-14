@@ -8,7 +8,7 @@ import {
   Post,
   Put,
 } from "@nestjs/common";
-import { ApiBearerAuth, ApiTags } from "@nestjs/swagger";
+import { ApiBearerAuth, ApiNotFoundResponse, ApiResponse, ApiTags } from "@nestjs/swagger";
 import { CreateCategoryDto, SearchNameDto, UpdateCategoryDto } from "src/auth/dto";
 import { CategoryService } from "./category.service";
 import { Categories } from "@prisma/client";
@@ -24,6 +24,11 @@ export class CategoryController {
     return await this.categoryService.getCategories();
   }
 
+  @ApiResponse({
+    status: 201,
+    description: "Create category success",
+    type: CreateCategoryDto
+  })
   @Post()
   async createCategory(@Body() createCategoryDto: CreateCategoryDto) {
     const category =
@@ -42,6 +47,14 @@ export class CategoryController {
     return category;
   }
 
+  @ApiResponse({
+    status: 201,
+    description: "Update category success",
+    type: UpdateCategoryDto
+  })
+  @ApiNotFoundResponse({
+    description: "Not found"
+  })
   @Put(":id")
   async updateCategory(
     @Param("id") id: string,
@@ -57,6 +70,14 @@ export class CategoryController {
     return updatedCategory;
   }
 
+  @ApiResponse({
+    status: 200,
+    description: "Delete category success",
+    type: CreateCategoryDto
+  })
+  @ApiNotFoundResponse({
+    description: "Not found"
+  })
   @Delete(":id")
   async deleteCategory(@Param("id") id: string) {
     const deletedCategory = await this.categoryService.deleteCategory(

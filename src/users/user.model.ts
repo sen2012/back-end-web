@@ -31,7 +31,21 @@ export class UserDTO implements  User {
 }
 
 
-export class aaa implements Pick<User, "id" | "email"> {
+export class Login implements Pick<User, "id" | "email" | "password"> {
+    @ApiProperty()
     id: number;
+
+    @ApiProperty()
     email: string;
+
+    @ApiProperty()
+    password: string;
+}
+
+export class UpdateRoleDto implements Pick<User, "id" | "role_id">{
+    @ApiProperty()
+    id: number;
+    
+    @ApiProperty()
+    role_id: number;
 }

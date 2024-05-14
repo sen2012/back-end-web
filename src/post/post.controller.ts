@@ -37,7 +37,7 @@ export class PostController {
       return await this.postService.getPost()
     }
     
-    @Get(":id")
+    @Get("get/:id")
     async getPostById(@Param("id") id: string): Promise<PostDB> {
       const post = await this.postService.getPostById(
         parseInt(id, 10),

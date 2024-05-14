@@ -1,4 +1,4 @@
-import { ForbiddenException, Injectable, UnauthorizedException } from "@nestjs/common";
+import { ConflictException, ForbiddenException, Injectable, UnauthorizedException } from "@nestjs/common";
 import { PrismaService } from "src/prisma.service";
 import * as argon from "argon2";
 import { AdminRegisterDto, AuthDto, ChangePasswordDto, RegisterDto } from "./dto";
@@ -14,8 +14,12 @@ export class AuthService {
     private configService: ConfigService,
   ) {}
 
-  //user login
+  //user register
   async register(registerDto: RegisterDto) {
+    if (registerDto.password !== registerDto.confirmPassword) {
+      throw new ConflictException('Passwords do not match');
+    }
+
     const hashedPassword = await argon.hash(registerDto.password);
 
     try {
@@ -28,7 +32,7 @@ export class AuthService {
           phone: registerDto.phone,
           address: registerDto.address,
           create_at: new Date(),
-          role_id: 1,
+          role_id: 1, 
         },
         select: {
           id: true,
@@ -46,6 +50,10 @@ export class AuthService {
 
     //admin register
     async registerAdmin(adminRegisterDto: AdminRegisterDto) {
+      if (adminRegisterDto.password !== adminRegisterDto.confirmPassword) {
+        throw new ConflictException('Passwords do not match');
+      }
+
       const hashedPassword = await argon.hash(adminRegisterDto.password);
   
       try {

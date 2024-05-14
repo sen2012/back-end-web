@@ -26,7 +26,7 @@ export class UsersController {
   constructor(private usersService: UsersService) {}
 
   @ApiBearerAuth()
-  @UseGuards(MyJwtGuard)
+  @UseGuards(MyJwtGuard)  
   @Get("me")
   me(@GetUser() user: User) {
     return user;
@@ -54,7 +54,7 @@ export class UsersController {
 
   @Delete(":id")
   @ApiResponse({
-    status: 201,
+    status: 200,
     description: 'delete user success',
     type: UserDTO,
   })
@@ -104,6 +104,14 @@ export class UsersController {
     return user;
   }
 
+  @ApiResponse({
+    status: 201,
+    description: "Update Role success",
+    type: UpdateRoleDto
+  })
+  @ApiNotFoundResponse({
+    description:"Not found"
+  })
   @Put("update/:id")
   async updateRole(@Param("id") id: string,@Body() updateRole: UpdateRoleDto){
     const user = await this.usersService.updateRole(

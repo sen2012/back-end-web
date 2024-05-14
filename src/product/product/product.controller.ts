@@ -1,8 +1,9 @@
 import { Body, Controller, Delete, Get, NotFoundException, Param, Post, Put } from "@nestjs/common";
-import { ApiBearerAuth, ApiTags } from "@nestjs/swagger";
+import { ApiBearerAuth, ApiNotFoundResponse, ApiResponse, ApiTags } from "@nestjs/swagger";
 import { CreateProductDto, FindProductDto, UpdateProductDto } from "src/auth/dto";
 import { ProductService } from "./product.service";
 import { Product } from "@prisma/client";
+import { ProductDto } from "./product.model";
 
 
 @ApiTags("Product")
@@ -15,6 +16,11 @@ export class ProductController {
     return await this.productService.getProduct();
   }
 
+  @ApiResponse({
+    status: 201,
+    description: "Create product success",
+    type: ProductDto
+  })
   @Post()
   async createProduct(@Body() createProductDto: CreateProductDto) {
     const product = await this.productService.createProduct(createProductDto);
@@ -32,6 +38,14 @@ export class ProductController {
     return product;
   }
 
+  @ApiResponse({
+    status: 201,
+    description: "Update product success",
+    type: ProductDto
+  })
+  @ApiNotFoundResponse({
+    description:"Not found"
+  })
   @Put(":id")
   async updateProduct(
     @Param("id") id: string,
@@ -47,6 +61,14 @@ export class ProductController {
     return updatedProduct;
   }
 
+  @ApiResponse({
+    status: 200,
+    description: "Delete product success",
+    type: ProductDto
+  })
+  @ApiNotFoundResponse({
+    description:"Not found"
+  })
   @Delete(":id")
   async deleteProduct(@Param("id") id: string) {
     const deletedProduct = await this.productService.deleteProduct(
@@ -57,6 +79,7 @@ export class ProductController {
     }
     return { message: `Product with ID ${id} has been deleted` };
   }
+
   //tìm kiếm theo tên product
   @Post('/search')
   async search(@Body() findProductDto: FindProductDto){
