@@ -1,0 +1,29 @@
+@startuml
+actor User
+participant "Client" as Client
+participant "Server" as Server
+participant "Database" as DB
+
+User -> Client: Request to remove product from cart
+activate Client
+
+Client -> Server: Request to remove product from cart
+activate Server
+
+Server -> DB: Query user's shopping cart information
+activate DB
+DB --> Server: User's shopping cart information
+deactivate DB
+
+Server -> Server: Check if the product is in the user's shopping cart
+alt The product is in the user's shopping cart
+    Server -> DB: Remove products from the user's cart
+    activate DB
+    DB --> Server: Successfully removed product from cart
+    deactivate DB
+    Server --> Client: Confirm successful deletion of product from cart
+end
+
+deactivate Server
+deactivate Client
+@enduml

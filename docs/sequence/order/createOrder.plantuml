@@ -1,0 +1,27 @@
+@startuml
+actor User
+participant "Client" as Client
+participant "Server" as Server
+participant "Database" as DB
+
+User -> Client: Login
+activate Client
+
+Client -> Server: Request to check order status
+activate Server
+
+Server -> DB: Query the user's order status
+activate DB
+DB --> Server: User's order status
+deactivate DB
+
+alt Order does not have "incomplete" status
+    Server -> Server: Create new order
+    Server --> Client: Order have been create
+else Order have "incomplete" status
+    Server --> Client: The order does exist
+end
+
+deactivate Server
+deactivate Client
+@enduml
