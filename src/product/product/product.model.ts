@@ -1,30 +1,28 @@
-import { ApiProperty } from "@nestjs/swagger";
-import { Product } from "@prisma/client";
-
+import { ApiProperty } from '@nestjs/swagger'
+import { Product } from '@prisma/client'
 
 export class ProductDto implements Product {
-    
-    @ApiProperty()
-    id: number;
+  @ApiProperty()
+  id: number
 
-    @ApiProperty()
-    product_name: string;
+  @ApiProperty()
+  product_name: string
 
-    @ApiProperty()
-    description: string;
+  @ApiProperty()
+  description: string
 
-    @ApiProperty()
-    photo: string;
+  @ApiProperty()
+  photo: string
 
-    @ApiProperty()
-    category_id: number;
+  @ApiProperty()
+  category_id: number
 
-    @ApiProperty()
-    price: number;
+  @ApiProperty()
+  price: number
 
-    @ApiProperty()
-    unit: string;
+  @ApiProperty()
+  unit: string
 
-    @ApiProperty()
-    create_at: Date;
+  @ApiProperty()
+  create_at: Date
 }

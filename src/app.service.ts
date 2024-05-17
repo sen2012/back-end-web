@@ -1,6 +1,6 @@
-import { Injectable } from "@nestjs/common";
-import { User } from "@prisma/client";
-import { PrismaService } from "./prisma.service";
+import { Injectable } from '@nestjs/common'
+import { User } from '@prisma/client'
+import { PrismaService } from './prisma.service'
 
 @Injectable()
 export class AppService {
@@ -11,7 +11,7 @@ export class AppService {
       where: {
         id,
       },
-    });
+    })
     // return this.prisma.$queryRaw`select * from User where 'id' = ${id}`;
   }
 }

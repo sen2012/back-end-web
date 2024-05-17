@@ -1,132 +1,131 @@
-import { ApiProperty } from "@nestjs/swagger";
-import { IsNotEmpty, IsNumber, IsNumberString, IsOptional, IsString } from "class-validator";
+import { ApiProperty } from '@nestjs/swagger'
+import {
+  IsNotEmpty,
+  IsNumber,
+  IsNumberString,
+  IsOptional,
+  IsString,
+} from 'class-validator'
 
 export class DetailDto {
   @IsNotEmpty()
-  product_name: string;
+  product_name: string
 
   @IsNotEmpty()
-  desciption: string;
+  desciption: string
 
   @IsNotEmpty()
-  price: number;
+  price: number
 
   @IsNotEmpty()
-  unit: string;
+  unit: string
 }
 
-export class UpdateProductDto{
+export class UpdateProductDto {
   @ApiProperty({
-    example: "Laptop lenovo think pad idea",
+    example: 'Laptop lenovo think pad idea',
   })
   @IsNotEmpty()
   @IsString()
-  product_name: string;
+  product_name: string
 
   @ApiProperty({
-    example: "sử dụng cpu i5-13500h, 1Tb dung lượng",
+    example: 'sử dụng cpu i5-13500h, 1Tb dung lượng',
   })
   @IsString()
   @IsNotEmpty()
-  description: string;
+  description: string
 
   @ApiProperty({
-    example: "400000",
+    example: '400000',
   })
   @IsNumber()
   @IsNotEmpty()
-  price: number;
+  price: number
 
   @ApiProperty({
-    example: "Cái",
+    example: 'Cái',
   })
   @IsString()
   @IsNotEmpty()
-  unit: string;
+  unit: string
 
   @ApiProperty({
-    example: "Laptop.png",
+    example: 'Laptop.png',
   })
   @IsString()
-  photo: string;
+  photo: string
 
   @ApiProperty({
-    example: "1",
+    example: '1',
   })
   @IsNumber()
   @IsNotEmpty()
-  category_id: number;
+  category_id: number
 }
 
 export class CreateProductDto {
   @ApiProperty({
-    example: "Laptop lenovo think pad idea",
+    example: 'Laptop lenovo think pad idea',
   })
   @IsNotEmpty()
   @IsString()
-  product_name: string;
+  product_name: string
 
   @ApiProperty({
-    example: "sử dụng cpu i5-13500h, 1Tb dung lượng",
+    example: 'sử dụng cpu i5-13500h, 1Tb dung lượng',
   })
   @IsString()
   @IsNotEmpty()
-  description: string;
+  description: string
 
   @ApiProperty({
-    example: "400000",
+    example: '400000',
   })
   @IsNumber()
   @IsNotEmpty()
-  price: number;
+  price: number
 
   @ApiProperty({
-    example: "Cái",
+    example: 'Cái',
   })
   @IsString()
   @IsNotEmpty()
-  unit: string;
+  unit: string
 
   @ApiProperty({
-    example: "Laptop.png",
+    example: 'Laptop.png',
   })
   @IsString()
-  photo: string;
+  photo: string
 
   @ApiProperty({
-    example: "1",
+    example: '1',
   })
   @IsNumber()
   @IsNotEmpty()
-  category_id: number;
+  category_id: number
 }
 
 export class FindProductDto {
-
   @ApiProperty({
-    example: "L",
+    example: 'L',
   })
   @IsString()
   @IsOptional()
   name?: string
 
-  @ApiProperty({
-
-  })
+  @ApiProperty({})
   @IsNumber()
   @IsOptional()
   categoryId?: number
 
-  @ApiProperty({
-
-  })
+  @ApiProperty({})
   @IsNumber()
   @IsOptional()
   minPrice?: number
 
-  @ApiProperty({
-    
-  })
+  @ApiProperty({})
   @IsNumber()
   @IsOptional()
   maxPrice?: number

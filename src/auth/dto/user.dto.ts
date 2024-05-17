@@ -1,68 +1,74 @@
-import { ApiProperty } from "@nestjs/swagger";
-import { IsNotEmpty, IsNumber, IsNumberString, IsPhoneNumber, IsString, Length, MinLength, Validate } from "class-validator";
+import { ApiProperty } from '@nestjs/swagger'
+import {
+  IsNotEmpty,
+  IsNumber,
+  IsNumberString,
+  IsPhoneNumber,
+  IsString,
+  Length,
+  MinLength,
+  Validate,
+} from 'class-validator'
 
 export class UpdateUserDto {
-
   @ApiProperty({
-    example: "banh"
+    example: 'banh',
   })
   @IsNotEmpty()
   @IsString()
-  name: string;
+  name: string
 
   @ApiProperty({
-    example: "089999999"
+    example: '089999999',
   })
   @IsNotEmpty()
   @IsNumberString()
   @Length(10, 10, { message: 'Phone number must have 10 digits' })
-  phone: string;
+  phone: string
 
   @ApiProperty({
-    example: "Lê Ngô Cát"
+    example: 'Lê Ngô Cát',
   })
   @IsNotEmpty()
   @IsString()
-  address: string;
+  address: string
 
   @ApiProperty({
-    example: "Thừ thiên Huế"
+    example: 'Thừ thiên Huế',
   })
   @IsNotEmpty()
   @IsString()
-  province: string;
+  province: string
 }
 
 export class ChangePasswordDto {
-  
   @ApiProperty({
-    example: "123456"
+    example: '123456',
   })
   @IsNotEmpty()
   @IsString()
-  oldPassword: string;
+  oldPassword: string
 
   @ApiProperty({
-    example: "123456789"
+    example: '123456789',
   })
   @IsNotEmpty()
   @IsString()
   @MinLength(6)
-  newPassword: string;
+  newPassword: string
 
   @ApiProperty({
-    example: "123456789"
+    example: '123456789',
   })
   @IsNotEmpty()
   @IsString()
   @MinLength(6)
-  confirmNewPassword: string;
+  confirmNewPassword: string
 }
 
 export class UpdateRoleDto {
-
   @ApiProperty({
-    example: "1"
+    example: '1',
   })
   @IsNumber()
   role_id: number

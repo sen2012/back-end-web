@@ -1,50 +1,49 @@
-import { ApiProperty } from "@nestjs/swagger";
-import { IsNotEmpty, IsString } from "class-validator";
+import { ApiProperty } from '@nestjs/swagger'
+import { IsNotEmpty, IsString } from 'class-validator'
 
 export class CreateCategoryDto {
   @ApiProperty({
-    example: "Laptop",
+    example: 'Laptop',
   })
   @IsNotEmpty()
   @IsString()
-  category_name: string;
+  category_name: string
 
   @ApiProperty({
-    example: "msi",
+    example: 'msi',
   })
   @IsNotEmpty()
   @IsString()
-  description: string;
+  description: string
 }
 
 export class UpdateCategoryDto {
   @ApiProperty({
-    example: "Ram PC",
+    example: 'Ram PC',
   })
   @IsNotEmpty()
   @IsString()
-  category_name: string;
+  category_name: string
 
   @ApiProperty({
-    example: "lenovo",
+    example: 'lenovo',
   })
   @IsNotEmpty()
   @IsString()
-  description: string;
+  description: string
 }
 
 export class SearchDto {
   @ApiProperty({
-    example: "MSI"
+    example: 'MSI',
   })
   @IsString()
   category_name: string
 }
 
 export class SearchNameDto {
-
   @ApiProperty({
-    example: "L"
+    example: 'L',
   })
   @IsString()
   category_name: string
