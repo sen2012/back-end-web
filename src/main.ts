@@ -9,6 +9,7 @@ async function bootstrap() {
   const config = new DocumentBuilder()
     .setTitle("API")
     .setDescription("List API")
+    .addServer("http://localhost:3000/")
     .setVersion("3.0")
     .addTag("Auth")
     .addTag("Users")

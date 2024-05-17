@@ -14,26 +14,37 @@ import {
 import { User } from "@prisma/client";
 import { GetUser } from "../auth/decorator/user.decorator";
 import { MyJwtGuard } from "../auth/guard";
-import { ApiBearerAuth, ApiTags } from "@nestjs/swagger";
+import { ApiBearerAuth, ApiNotFoundResponse, ApiOkResponse, ApiResponse, ApiTags } from "@nestjs/swagger";
 import { UsersService } from "./users.service";
-import { ChangePasswordDto, UpdateUserDto } from "src/auth/dto";
+import { ChangePasswordDto, UpdateRoleDto, UpdateUserDto } from "src/auth/dto";
+import {  UserDTO } from "./user.model";
 
-@ApiBearerAuth()
+
 @ApiTags("Users")
 @Controller("users")
 export class UsersController {
   constructor(private usersService: UsersService) {}
 
-  @UseGuards(MyJwtGuard)
+  @ApiBearerAuth()
+  @UseGuards(MyJwtGuard)  
   @Get("me")
   me(@GetUser() user: User) {
     return user;
   }
 
+  @ApiBearerAuth()
   @UseGuards(MyJwtGuard)
+  @ApiResponse({
+    status: 201,
+    description: 'update user inform success',
+    type: UserDTO,
+  })
+  @ApiNotFoundResponse({
+    description: 'not found'
+  })
   @Put("me")
-  async updateCurrentUser(@Request() req, @Body() updateUserDto: UpdateUserDto): Promise<User> {
-    const userId = req.user.id; // Assuming you have stored the user ID in the request object after authentication
+  async updateCurrentUser(@GetUser() user: User, @Body() updateUserDto: UpdateUserDto): Promise<User> {
+    const userId = user.id; // Assuming you have stored the user ID in the request object after authentication
     if (!userId) {
       throw new NotFoundException('User not found');
     }
@@ -42,6 +53,14 @@ export class UsersController {
   }
 
   @Delete(":id")
+  @ApiResponse({
+    status: 200,
+    description: 'delete user success',
+    type: UserDTO,
+  })
+  @ApiNotFoundResponse({
+    description: 'not found'
+  })
   async deleteUser(@Param("id") id: string) {
     const deletedUser = await this.usersService.deleteUser(
       parseInt(id, 10),
@@ -57,10 +76,11 @@ export class UsersController {
     return await this.usersService.getUsers();
   }
 
+  @ApiBearerAuth()
   @Post('change-password')
-  @UseGuards(MyJwtGuard) // Use Guard if using JWT auth
-  async changePassword(@Req() req, @Body() changePasswordDto: ChangePasswordDto) {
-    const userId = req.user.id; // Lấy id của người dùng từ JWT payload
+  @UseGuards(MyJwtGuard) 
+  async changePassword(@GetUser() user: User, @Body() changePasswordDto: ChangePasswordDto) {
+    const userId = user.id; // Lấy id của người dùng từ JWT payload
 
     // Thực hiện logic thay đổi mật khẩu (kiểm tra mật khẩu cũ, cập nhật mật khẩu mới, vv.)
     const result = await this.usersService.changePassword(userId, changePasswordDto);
@@ -82,5 +102,24 @@ export class UsersController {
       throw new NotFoundException(`User with ID ${id} not found`);
     }
     return user;
+  }
+
+  @ApiResponse({
+    status: 201,
+    description: "Update Role success",
+    type: UpdateRoleDto
+  })
+  @ApiNotFoundResponse({
+    description:"Not found"
+  })
+  @Put("update/:id")
+  async updateRole(@Param("id") id: string,@Body() updateRole: UpdateRoleDto){
+    const user = await this.usersService.updateRole(
+      parseInt(id, 10), updateRole
+    )
+    if (!user) {
+      throw new NotFoundException(`User with ID ${id} not found`);
+    }
+    return user
   }
 }

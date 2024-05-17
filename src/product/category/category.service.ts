@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from "@nestjs/common";
 import { Categories } from "@prisma/client";
-import { CreateCategoryDto, UpdateCategoryDto } from "src/auth/dto/category.dto";
+import { CreateCategoryDto, SearchNameDto, UpdateCategoryDto } from "src/auth/dto/category.dto";
 import { PrismaService } from "src/prisma.service";
 
 @Injectable()
@@ -54,11 +54,11 @@ export class CategoryService {
     return category;
   }
 
-  async searchName(name: string){
+  async searchName(searchNameDto : SearchNameDto){
     return this.prismaService.categories.findMany({
       where: {
         category_name: {
-          contains: name
+          contains: searchNameDto.category_name
         }
       }
     })

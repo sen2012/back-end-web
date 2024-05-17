@@ -5,7 +5,7 @@ import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { Post as PostDB } from '@prisma/client';
 import { title } from 'process';
 
-@ApiBearerAuth()
+
 @ApiTags("Post")
 @Controller('post')
 export class PostController {
@@ -37,7 +37,7 @@ export class PostController {
       return await this.postService.getPost()
     }
     
-    @Get(":id")
+    @Get("get/:id")
     async getPostById(@Param("id") id: string): Promise<PostDB> {
       const post = await this.postService.getPostById(
         parseInt(id, 10),

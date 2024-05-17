@@ -40,3 +40,12 @@ export class SearchDto {
   @IsString()
   category_name: string
 }
+
+export class SearchNameDto {
+
+  @ApiProperty({
+    example: "L"
+  })
+  @IsString()
+  category_name: string
+}

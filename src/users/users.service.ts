@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from "@nestjs/common";
 import { User } from "@prisma/client";
-import { ChangePasswordDto, UpdateUserDto } from "src/auth/dto";
+import { ChangePasswordDto, UpdateRoleDto, UpdateUserDto } from "src/auth/dto";
 import { PrismaService } from "src/prisma.service";
 import * as argon from "argon2";
 
@@ -69,5 +69,22 @@ export class UsersService {
       throw new NotFoundException(`User with ID ${id} not found`);
     }
     return user;
+  }
+
+  async updateRole(id: number, updateRole: UpdateRoleDto){
+    const user = await this.prismaService.user.findUnique({
+      where: {
+        id
+      }
+    })
+    if (!user) {
+      throw new NotFoundException(`User with ID ${id} not found`);
+    }
+    return this.prismaService.user.update({
+      where:{id},
+      data: {
+        role_id: updateRole.role_id
+      }
+    })
   }
 }

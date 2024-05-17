@@ -5,6 +5,13 @@ import { IsBoolean, IsNotEmpty, IsString } from "class-validator";
 export class CreatePostDto {
 
     @ApiProperty({
+        example: "giamgia.png"
+    })
+    @IsString()
+    @IsNotEmpty()
+    image: string
+
+    @ApiProperty({
         example: "Giảm giá"
     })
     @IsString()
@@ -27,6 +34,14 @@ export class CreatePostDto {
 }
 
 export class UpdatePostDto {
+
+    @ApiProperty({
+        example: "d.png"
+    })
+    @IsString()
+    @IsNotEmpty()
+    image: string
+
     @ApiProperty({
         example: "Giảm giá"
     })

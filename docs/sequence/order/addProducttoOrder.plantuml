@@ -1,0 +1,31 @@
+@startuml
+actor User
+participant "Client" as Client
+participant "Server" as Server
+participant "Database" as DB
+
+User -> Client: Select product to add to cart
+activate Client
+
+Client -> Server: Request to add product to cart
+activate Server
+
+Server -> DB: Query product information
+activate DB
+DB --> Server: Product information
+deactivate DB
+
+Server -> Server: Check available products in the user's shopping cart
+alt The product is not in the user's shopping cart
+    Server -> DB: Add products to the user's cart
+    activate DB
+    DB --> Server: Successfully added product to cart
+    deactivate DB
+    Server --> Client: Confirm adding products to cart successfully
+else The product is already in the user's shopping cart
+    Server --> Client: +1 the quantity of that product
+end
+
+deactivate Server
+deactivate Client
+@enduml
