@@ -99,7 +99,7 @@ export class OrderService {
         },
         data: {
           modified_at: new Date(utcPlus7Time),
-          status: 'cancel',
+          status: 'canceled',
         },
       })
 
