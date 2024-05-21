@@ -30,6 +30,17 @@
 
 ```bash
 $ npm install
+
+npm install argon2
+
+npm install multer
+
+npm install @nestjs/swagger swagger-ui-express
+
+npm install prisma -D
+
+npm install class-validator class-transformer @nestjs/swagger
+
 ```
 
 ## Running the app
@@ -72,17 +83,3 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 
 Nest is [MIT licensed](LICENSE).
 
-## Need to download
-
-```bash
-npm install argon2
-
-npm install multer
-
-npm install @nestjs/swagger swagger-ui-express
-
-npm install prisma -D
-
-npm install class-validator class-transformer @nestjs/swagger
-
-```
