@@ -31,15 +31,15 @@
 ```bash
 $ npm install
 
-npm install argon2
+$ npm install argon2
 
-npm install multer
+$ npm install multer
 
-npm install @nestjs/swagger swagger-ui-express
+$ npm install @nestjs/swagger swagger-ui-express
 
-npm install prisma -D
+$ npm install prisma -D
 
-npm install class-validator class-transformer @nestjs/swagger
+$ npm install class-validator class-transformer @nestjs/swagger
 
 ```
 
