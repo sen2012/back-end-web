@@ -83,4 +83,6 @@ npm install @nestjs/swagger swagger-ui-express
 
 npm install prisma -D
 
+npm install class-validator class-transformer @nestjs/swagger
+
 ```
