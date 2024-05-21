@@ -29,6 +29,12 @@ export class PaymentService {
 
     const payment = newPayment.id
 
+    const OrderDetail = await this.prismaService.orderDetail.findFirst({
+      where:{
+        order_id: incompleteOrder.id
+      }
+    })
+
     await this.prismaService.order.update({
       where: {
         id: incompleteOrder.id,
@@ -38,6 +44,17 @@ export class PaymentService {
         order_time: new Date(utcPlus7Time),
         status: 'wait to confirm',
       },
+    })
+
+    await this.prismaService.product.update({
+      where:{
+        id: OrderDetail.product_id
+      },
+      data:{
+        quantity:{
+          decrement: OrderDetail.quantity
+        }
+      }
     })
 
     await this.prismaService.order.create({

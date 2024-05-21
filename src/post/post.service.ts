@@ -1,17 +1,28 @@
-import { Injectable, NotFoundException } from '@nestjs/common'
+import { HttpException, HttpStatus, Injectable, NotFoundException } from '@nestjs/common'
 import { Post } from '@prisma/client'
 import { CreatePostDto, UpdatePostDto } from '../auth/dto'
 import { PrismaService } from 'src/prisma.service'
-
+import * as fs from 'fs-extra'
+import { v4 as uuidv4 } from 'uuid'
+import path from 'path'
+  
 @Injectable()
 export class PostService {
   constructor(private prismaService: PrismaService) {}
 
   async createPost(createPostDto: CreatePostDto) {
+
+    // Lưu thông tin bài đăng vào cơ sở dữ liệu với tên ảnh
     const post = await this.prismaService.post.create({
-      data: createPostDto,
-    })
-    return post
+      data: {
+        title: createPostDto.title,
+        content: createPostDto.content,
+        published: createPostDto.published,
+        image: createPostDto.image, // Lưu tên của ảnh vào cơ sở dữ liệu
+      },
+    });
+
+    return post;
   }
 
   async updatePost(id: number, updatePostDto: UpdatePostDto): Promise<Post> {

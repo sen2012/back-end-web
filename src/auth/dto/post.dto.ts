@@ -5,8 +5,6 @@ export class CreatePostDto {
   @ApiProperty({
     example: 'giamgia.png',
   })
-  @IsString()
-  @IsNotEmpty()
   image: string
 
   @ApiProperty({
@@ -26,8 +24,6 @@ export class CreatePostDto {
   @ApiProperty({
     example: 'true',
   })
-  @IsNotEmpty()
-  @IsBoolean()
   published: boolean
 }
 

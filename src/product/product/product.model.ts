@@ -25,4 +25,7 @@ export class ProductDto implements Product {
 
   @ApiProperty()
   create_at: Date
+
+  @ApiProperty()
+  quantity: number
 }

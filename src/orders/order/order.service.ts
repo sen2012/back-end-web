@@ -65,7 +65,6 @@ export class OrderService {
           status: 'complete',
         },
       })
-
       // Trả về đơn hàng sau khi đã được cập nhật
       return updatedOrder
     } catch (error) {
@@ -101,6 +100,23 @@ export class OrderService {
           modified_at: new Date(utcPlus7Time),
           status: 'canceled',
         },
+      })
+
+      const OrderDetail = await this.prismaService.orderDetail.findFirst({
+        where:{
+          order_id: order.id
+        }
+      })
+
+      await this.prismaService.product.update({
+        where:{
+          id: OrderDetail.product_id
+        },
+        data:{
+          quantity:{
+            increment: OrderDetail.quantity
+          }
+        }
       })
 
       // Trả về đơn hàng sau khi đã được cập nhật
@@ -170,6 +186,16 @@ export class OrderService {
     })
 
     return user
+  }
+
+  async userOrderWait(orderId: number) {
+    const Order = await this.prismaService.order.findUnique({
+      where: {
+        id: orderId
+      },
+    })
+
+    return Order
   }
 
   async inOrderDetail(orderId: number) {

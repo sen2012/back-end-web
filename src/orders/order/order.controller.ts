@@ -170,4 +170,15 @@ export class OrderController {
     const order = this.orderService.userOrderComplete(userId)
     return order
   }
+
+  @ApiResponse({
+    status: 200,
+    description: 'successful operation',
+    type: OrderDto,
+  })
+  @Get('user/orderWait/:orderId')
+  async userOrderWait(@Param('orderId') orderId: string) {
+    const order = await this.orderService.userOrderWait(parseInt(orderId, 10))
+    return order
+  }
 }

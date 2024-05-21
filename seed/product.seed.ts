@@ -14,6 +14,7 @@ async function main() {
 				unit: 'đ',
 				category_id: 1,
 				create_at: new Date(),
+				quantity: 10
 			},
 			{
 				product_name: 'MacBook Air 15 inch',
@@ -24,6 +25,7 @@ async function main() {
 				unit: 'đ',
 				category_id: 5,
 				create_at: new Date(),
+				quantity: 10
 			},
 			{
 				product_name: 'MacBook Air M1  ',
@@ -34,6 +36,7 @@ async function main() {
 				unit: 'đ',
 				category_id: 5,
 				create_at: new Date(),
+				quantity: 10
 			},
 			{
 				product_name: 'Asus Vivobook Go 15',
@@ -44,6 +47,7 @@ async function main() {
 				unit: 'đ',
 				category_id: 1,
 				create_at: new Date(),
+				quantity: 10
 			},
 			{
 				product_name: 'Asus TUF Gaming FX50',
@@ -54,6 +58,7 @@ async function main() {
 				unit: 'đ',
 				category_id: 1,
 				create_at: new Date(),
+				quantity: 10
 			},
 			{
 				product_name: 'Lenovo IdeaPad Slim 5',
@@ -64,6 +69,7 @@ async function main() {
 				unit: 'đ',
 				category_id: 6,
 				create_at: new Date(),
+				quantity: 10
 			},
 			{
 				product_name: 'Acer Aspire 3 A315',
@@ -74,6 +80,7 @@ async function main() {
 				unit: 'đ',
 				category_id: 4,
 				create_at: new Date(),
+				quantity: 10
 			},
 			{
 				product_name: 'Acer Aspire 5 A515',
@@ -84,6 +91,7 @@ async function main() {
 				unit: 'đ',
 				category_id: 4,
 				create_at: new Date(),
+				quantity: 10
 			},
 			{
 				product_name: 'Lenovo IdeaPad 3 15IAU7',
@@ -94,6 +102,7 @@ async function main() {
 				unit: 'đ',
 				category_id: 6,
 				create_at: new Date(),
+				quantity: 10
 			},
 			{
 				product_name: 'Acer Nitro 16 Phoenix',
@@ -104,6 +113,7 @@ async function main() {
 				unit: 'đ',
 				category_id: 4,
 				create_at: new Date(),
+				quantity: 10
 			},
 			{
 				product_name: 'HP Pavilion X360 1047',
@@ -114,6 +124,7 @@ async function main() {
 				unit: 'đ',
 				category_id: 3,
 				create_at: new Date(),
+				quantity: 10
 			},
 			{
 				product_name: 'Dell Inspiron 16 5630',
@@ -124,6 +135,7 @@ async function main() {
 				unit: 'đ',
 				category_id: 2,
 				create_at: new Date(),
+				quantity: 10
 			},
 			{
 				product_name: 'Dell Vostro 16 5630',
@@ -134,6 +146,7 @@ async function main() {
 				unit: 'đ',
 				category_id: 2,
 				create_at: new Date(),
+				quantity: 10
 			},
 			{
 				product_name: 'ASUS ROG Strix SCAR 16',
@@ -144,6 +157,7 @@ async function main() {
 				unit: 'đ',
 				category_id: 1,
 				create_at: new Date(),
+				quantity: 10
 			},
 
 			{
@@ -155,6 +169,7 @@ async function main() {
 				unit: 'đ',
 				category_id: 3,
 				create_at: new Date(),
+				quantity: 10
 			},
 			{
 				product_name: 'MacBook Pro M2',
@@ -165,6 +180,7 @@ async function main() {
 				unit: 'đ',
 				category_id: 5,
 				create_at: new Date(),
+				quantity: 10
 			},
 			{
 				product_name: 'HP ProBook 450 G10',
@@ -175,6 +191,7 @@ async function main() {
 				unit: 'đ',
 				category_id: 3,
 				create_at: new Date(),
+				quantity: 10
 			},
 			{
 				product_name: 'HP EliteBook 640 G10',
@@ -185,6 +202,7 @@ async function main() {
 				unit: 'đ',
 				category_id: 3,
 				create_at: new Date(),
+				quantity: 10
 			},
 			{
 				product_name: 'Lenovo Legion Pro 5',
@@ -195,6 +213,7 @@ async function main() {
 				unit: 'đ',
 				category_id: 6,
 				create_at: new Date(),
+				quantity: 10
 			},
 			{
 				product_name: ' Asus Zenbook 14 OLED',
@@ -205,6 +224,7 @@ async function main() {
 				unit: 'đ',
 				category_id: 1,
 				create_at: new Date(),
+				quantity: 10
 			},
 			{
 				product_name: 'Asus Vivobook 15',
@@ -215,6 +235,7 @@ async function main() {
 				unit: 'đ',
 				category_id: 1,
 				create_at: new Date(),
+				quantity: 10
 			},
 			{
 				product_name: 'ACER Nitro 5 Eagle AN515',
@@ -225,6 +246,7 @@ async function main() {
 				unit: 'đ',
 				category_id: 4,
 				create_at: new Date(),
+				quantity: 10
 			},
 			{
 				product_name: 'Dell Inspiron 3530',
@@ -235,6 +257,7 @@ async function main() {
 				unit: 'đ',
 				category_id: 2,
 				create_at: new Date(),
+				quantity: 10
 			},
 			{
 				product_name: 'MacBook Air 2023 15.3',
@@ -245,6 +268,7 @@ async function main() {
 				unit: 'đ',
 				category_id: 5,
 				create_at: new Date(),
+				quantity: 10
 			},
 			{
 				product_name: 'HP ProBook 450 G10',
@@ -255,6 +279,7 @@ async function main() {
 				unit: 'đ',
 				category_id: 3,
 				create_at: new Date(),
+				quantity: 10
 			},
 			// Thêm các vai trò khác nếu cần
 		],

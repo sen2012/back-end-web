@@ -49,6 +49,7 @@ model Product {
   price        Float
   photo        String
   unit         String
+  quantity     Int
   create_at    DateTime?
   category_id  Int?
   order_detail OrderDetail[]

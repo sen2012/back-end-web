@@ -19,6 +19,9 @@ export class DetailDto {
 
   @IsNotEmpty()
   unit: string
+
+  @IsNotEmpty()
+  quantity: number
 }
 
 export class UpdateProductDto {
@@ -62,6 +65,13 @@ export class UpdateProductDto {
   @IsNumber()
   @IsNotEmpty()
   category_id: number
+
+  @ApiProperty({
+    example: '10',
+  })
+  @IsNumber()
+  @IsNotEmpty()
+  quantity: number
 }
 
 export class CreateProductDto {
@@ -105,6 +115,13 @@ export class CreateProductDto {
   @IsNumber()
   @IsNotEmpty()
   category_id: number
+
+  @ApiProperty({
+    example: '10',
+  })
+  @IsNumber()
+  @IsNotEmpty()
+  quantity: number
 }
 
 export class FindProductDto {

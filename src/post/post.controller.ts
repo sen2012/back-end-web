@@ -7,12 +7,16 @@ import {
   Param,
   Post,
   Put,
+  UploadedFile,
+  UseInterceptors,
 } from '@nestjs/common'
 import { PostService } from './post.service'
 import { CreatePostDto, UpdatePostDto } from 'src/auth/dto'
-import { ApiBearerAuth, ApiTags } from '@nestjs/swagger'
+import { ApiTags } from '@nestjs/swagger'
 import { Post as PostDB } from '@prisma/client'
 import { title } from 'process'
+import { FileInterceptor } from '@nestjs/platform-express'
+import { diskStorage } from 'multer'
 
 @ApiTags('Post')
 @Controller('post')
@@ -20,9 +24,10 @@ export class PostController {
   constructor(private postService: PostService) {}
 
   @Post()
+  @UseInterceptors(FileInterceptor('image')) // Tên trường của tệp trong multipart form-data
   async createPost(@Body() createPostDto: CreatePostDto) {
-    const post = await this.postService.createPost(createPostDto)
-    return post // You can return the created product as a response
+    const post = await this.postService.createPost(createPostDto);
+    return post;
   }
 
   @Put(':id')
