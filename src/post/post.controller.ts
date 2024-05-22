@@ -8,15 +8,15 @@ import {
   Post,
   Put,
   UploadedFile,
-  UseInterceptors,
+  UseInterceptors
 } from '@nestjs/common'
 import { PostService } from './post.service'
 import { CreatePostDto, UpdatePostDto } from 'src/auth/dto'
 import { ApiTags } from '@nestjs/swagger'
 import { Post as PostDB } from '@prisma/client'
-import { title } from 'process'
 import { FileInterceptor } from '@nestjs/platform-express'
 import { diskStorage } from 'multer'
+
 
 @ApiTags('Post')
 @Controller('post')
@@ -24,10 +24,51 @@ export class PostController {
   constructor(private postService: PostService) {}
 
   @Post()
-  @UseInterceptors(FileInterceptor('image')) // Tên trường của tệp trong multipart form-data
-  async createPost(@Body() createPostDto: CreatePostDto) {
-    const post = await this.postService.createPost(createPostDto);
-    return post;
+    async createPost(@Body() createPostDto: CreatePostDto) {
+      const post = await this.postService.createPost(createPostDto);
+      return post; // You can return the created product as a response
+    }
+
+  // @Post('local')
+  // @UseInterceptors(
+  //   FileInterceptor('image', {
+  //     storage: diskStorage({
+  //       destination: './image',
+  //       filename: (req, file, cb) => {
+  //         cb(null, file.originalname);
+  //       },
+  //     }),
+  //   }),
+  // )
+  // async local(@UploadedFile() file: Express.Multer.File, @Body() createPostDto: CreatePostDto) {
+  //   // Tạo bài đăng với thông tin từ DTO và tên của ảnh từ file đã tải lên
+  //   const post = await this.postService.createPost({
+  //     ...createPostDto,
+  //     image: file.filename, // Sử dụng tên của ảnh đã tải lên
+  //   });
+  
+  //   return {
+  //     statusCode: 200,
+  //     data: post,
+  //   };
+  // }
+  
+  @Post('local')
+  @UseInterceptors(
+    FileInterceptor('image', {
+      storage: diskStorage({
+        destination: './image',
+        filename: (req, file, cb) => {
+          cb(null, file.originalname);
+        },
+      }),
+    }),
+  )
+  async local(@UploadedFile() file: Express.Multer.File) {
+    return {
+      statusCode: 200,
+      data: file.path,
+    };
   }
 
   @Put(':id')

@@ -12,6 +12,8 @@ import { OrderModule } from './orders/order/order.module'
 import { PaymentModule } from './orders/payment/payment.module'
 import { RoleModule } from './users/role/role.module'
 import { OrderdetailModule } from './orders/orderdetail/orderdetail.module'
+import { ServeStaticModule } from '@nestjs/serve-static'
+import { join } from 'path'
 
 @Module({
   imports: [
@@ -25,6 +27,9 @@ import { OrderdetailModule } from './orders/orderdetail/orderdetail.module'
     PaymentModule,
     RoleModule,
     OrderdetailModule,
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..'),
+    })
   ],
   controllers: [AppController],
   providers: [AppService, PrismaService],

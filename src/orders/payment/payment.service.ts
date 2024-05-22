@@ -67,4 +67,8 @@ export class PaymentService {
 
     return newPayment
   }
+
+  async getPayment(){
+    return this.prismaService.payment.findMany()
+  }
 }

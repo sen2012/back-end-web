@@ -7,6 +7,8 @@ import {
   Param,
   Post,
   Put,
+  UploadedFile,
+  UseInterceptors,
 } from '@nestjs/common'
 import {
   ApiBearerAuth,
@@ -22,6 +24,8 @@ import {
 import { ProductService } from './product.service'
 import { Product } from '@prisma/client'
 import { ProductDto } from './product.model'
+import { FileInterceptor } from '@nestjs/platform-express'
+import { diskStorage } from 'multer'
 
 @ApiTags('Product')
 @Controller('product')
@@ -44,9 +48,28 @@ export class ProductController {
     type: ProductDto,
   })
   @Post()
-  async createProduct(@Body() createProductDto: CreateProductDto) {
+  @UseInterceptors(FileInterceptor('image'))
+  async createProduct(@Body() createProductDto: CreateProductDto, @UploadedFile() image: Express.Multer.File) {
     const product = await this.productService.createProduct(createProductDto)
     return product // You can return the created product as a response
+  }
+
+  @Post('local')
+  @UseInterceptors(
+    FileInterceptor('photo', {
+      storage: diskStorage({
+        destination: './image',
+        filename: (req, file, cb) => {
+          cb(null, file.originalname);
+        },
+      }),
+    }),
+  )
+  async local(@UploadedFile() file: Express.Multer.File) {
+    return {
+      statusCode: 200,
+      data: file.path,
+    };
   }
 
   @ApiResponse({
