@@ -2,7 +2,7 @@
 actor User
 participant "User Interface" as UI
 participant "Controller" as Controller
-participant "Database" as DB
+database "Database" as DB
 
 User -> UI: Enter updated information
 UI -> Controller: Send updated information

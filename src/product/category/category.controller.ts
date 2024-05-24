@@ -17,6 +17,7 @@ import {
 import {
   CreateCategoryDto,
   SearchNameDto,
+  SearchTypeDto,
   UpdateCategoryDto,
 } from 'src/auth/dto'
 import { CategoryService } from './category.service'
@@ -113,8 +114,18 @@ export class CategoryController {
     description: 'successful operation',
     type: CategoryDto,
   })
-  @Post('search')
+  @Post('search/name')
   async searchName(@Body() searchNameDto: SearchNameDto) {
     return this.categoryService.searchName(searchNameDto)
+  }
+
+  @ApiResponse({
+    status: 201,
+    description: 'successful operation',
+    type: CategoryDto,
+  })
+  @Post('search/type')
+  async searchType(@Body() searchTypeDto : SearchTypeDto) {
+    return this.categoryService.searchByType(searchTypeDto)
   }
 }

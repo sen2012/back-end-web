@@ -3,6 +3,7 @@ import { Categories } from '@prisma/client'
 import {
   CreateCategoryDto,
   SearchNameDto,
+  SearchTypeDto,
   UpdateCategoryDto,
 } from 'src/auth/dto/category.dto'
 import { PrismaService } from 'src/prisma.service'
@@ -65,6 +66,16 @@ export class CategoryService {
           contains: searchNameDto.category_name,
         },
       },
+    })
+  }
+
+  async searchByType(searchTypeDto: SearchTypeDto){
+    return this.prismaService.categories.findMany({
+      where: {
+        type:{
+          contains: searchTypeDto.type
+        }
+      }
     })
   }
 }

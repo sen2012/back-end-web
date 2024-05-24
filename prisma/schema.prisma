@@ -39,6 +39,7 @@ model Categories {
   id            Int       @id @default(autoincrement())
   category_name String
   description   String
+  type          String
   product       Product[]
 }
 

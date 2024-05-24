@@ -2,7 +2,7 @@
 actor User
 participant "Client" as Client
 participant "Server" as Server
-participant "Database" as DB
+database "Database" as DB
 
 User -> Client: Login
 activate Client

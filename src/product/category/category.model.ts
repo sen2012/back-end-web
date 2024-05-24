@@ -10,4 +10,7 @@ export class CategoryDto implements Categories {
 
   @ApiProperty()
   description: string
+
+  @ApiProperty()
+  type: string
 }

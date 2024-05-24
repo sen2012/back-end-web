@@ -15,6 +15,13 @@ export class CreateCategoryDto {
   @IsNotEmpty()
   @IsString()
   description: string
+
+  @ApiProperty({
+    example: 'Laptop',
+  })
+  @IsNotEmpty()
+  @IsString()
+  type: string
 }
 
 export class UpdateCategoryDto {
@@ -31,14 +38,21 @@ export class UpdateCategoryDto {
   @IsNotEmpty()
   @IsString()
   description: string
+
+  @ApiProperty({
+    example: 'Laptop',
+  })
+  @IsNotEmpty()
+  @IsString()
+  type: string
 }
 
-export class SearchDto {
+export class SearchTypeDto {
   @ApiProperty({
-    example: 'MSI',
+    example: 'Laptop',
   })
   @IsString()
-  category_name: string
+  type: string
 }
 
 export class SearchNameDto {
