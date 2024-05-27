@@ -7,6 +7,7 @@ import {
   Param,
   Post,
   Put,
+  Res,
   UploadedFile,
   UseInterceptors,
 } from '@nestjs/common'
@@ -48,28 +49,30 @@ export class ProductController {
     type: ProductDto,
   })
   @Post()
-  @UseInterceptors(FileInterceptor('image'))
-  async createProduct(@Body() createProductDto: CreateProductDto, @UploadedFile() image: Express.Multer.File) {
-    const product = await this.productService.createProduct(createProductDto)
-    return product // You can return the created product as a response
-  }
-
-  @Post('local')
   @UseInterceptors(
     FileInterceptor('photo', {
       storage: diskStorage({
-        destination: './image',
+        destination: './image/product',
         filename: (req, file, cb) => {
           cb(null, file.originalname);
         },
       }),
     }),
   )
-  async local(@UploadedFile() file: Express.Multer.File) {
+  async createProduct(@UploadedFile() file: Express.Multer.File, @Body() createProductDto: CreateProductDto) {
+    const post = await this.productService.createProduct({
+      ...createProductDto,
+      photo: file.filename, // Sử dụng tên của ảnh đã tải lên
+    });
     return {
       statusCode: 200,
-      data: file.path,
+      data: post,
     };
+  }
+
+  @Get('image/:filename')
+  async serveImage(@Param('filename') filename, @Res() res): Promise<any> {
+    res.sendFile(filename, { root: 'image/product' }); // Đường dẫn 'image' phải khớp với nơi bạn lưu trữ hình ảnh
   }
 
   @ApiResponse({

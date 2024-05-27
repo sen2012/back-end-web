@@ -7,6 +7,7 @@ import {
   Param,
   Post,
   Put,
+  Res,
   UploadedFile,
   UseInterceptors
 } from '@nestjs/common'
@@ -17,6 +18,7 @@ import { Post as PostDB } from '@prisma/client'
 import { FileInterceptor } from '@nestjs/platform-express'
 import { diskStorage } from 'multer'
 import { PostDto } from './post.model'
+import * as fs from 'fs'
 
 
 @ApiTags('Post')
@@ -44,7 +46,7 @@ export class PostController {
   @UseInterceptors(
     FileInterceptor('image', {
       storage: diskStorage({
-        destination: './image',
+        destination: './image/post',
         filename: (req, file, cb) => {
           cb(null, file.originalname);
         },
@@ -62,6 +64,11 @@ export class PostController {
       statusCode: 200,
       data: post,
     };
+  }
+
+  @Get('image/:filename')
+  async serveImage(@Param('filename') filename, @Res() res): Promise<any> {
+    res.sendFile(filename, { root: 'image/post' }); // Đường dẫn 'image' phải khớp với nơi bạn lưu trữ hình ảnh
   }
   
   // @Post('local')
