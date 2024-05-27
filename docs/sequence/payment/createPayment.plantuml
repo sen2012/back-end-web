@@ -1,0 +1,33 @@
+@startuml
+actor User
+participant "Client" as Frontend
+participant "Server" as Backend
+participant "Payment Service" as PaymentService
+participant "Order Service" as OrderService
+
+User -> Frontend: Initiate Payment
+activate Frontend
+
+Frontend -> Backend: Request Payment
+activate Backend
+
+Backend -> PaymentService: Create Payment
+activate PaymentService
+
+PaymentService --> Backend: Payment Created
+deactivate PaymentService
+
+Backend --> Frontend: Payment Created
+activate OrderService
+
+Backend -> OrderService: Update Order Status to "wait to confirm"
+OrderService --> Backend: Order Status Updated
+Backend -> OrderService: Create New Incomplete Order
+deactivate OrderService
+
+Backend --> Frontend: Payment Confirmed
+deactivate Backend
+
+Frontend --> User: Display Payment Confirmed
+deactivate Frontend
+@enduml

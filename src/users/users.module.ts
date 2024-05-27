@@ -1,19 +1,13 @@
-import { MiddlewareConsumer, Module, NestModule } from "@nestjs/common";
-import { UsersService } from "./users.service";
-import { UsersController } from "./users.controller";
-import { PrismaService } from "src/prisma.service";
-import * as cors from "cors";
-import * as express from "express";
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common'
+import { UsersService } from './users.service'
+import { UsersController } from './users.controller'
+import { PrismaService } from 'src/prisma.service'
+import * as cors from 'cors'
+import * as express from 'express'
 
 @Module({
   providers: [UsersService, PrismaService],
   exports: [UsersService, PrismaService],
   controllers: [UsersController],
 })
-export class UsersModule implements NestModule{
-  configure(consumer: MiddlewareConsumer) {
-    const app = express();
-    app.use(cors());
-    consumer.apply(app).forRoutes("*");
-  }
-}
+export class UsersModule {}

@@ -1,0 +1,26 @@
+@startuml
+actor Admin
+participant "Admin Interface" as AdminInterface
+participant "Backend Server" as Backend
+participant "Order Service" as OrderService
+
+Admin -> AdminInterface: Log in
+activate AdminInterface
+
+AdminInterface -> Backend: Request to Cancel Order
+activate Backend
+
+Backend -> OrderService: Cancel Order(orderId)
+activate OrderService
+
+OrderService -> Backend: Get Order Details(orderId)
+Backend --> OrderService: Order Details
+OrderService --> Backend: Canceled Order Status Updated
+deactivate OrderService
+
+Backend --> AdminInterface: Order Canceled
+deactivate Backend
+
+AdminInterface --> Admin: Display Order Canceled
+deactivate AdminInterface
+@enduml

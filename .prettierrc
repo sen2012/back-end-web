@@ -1,17 +1,7 @@
 {
-    "tabWidth": 4,
-    "useTabs": true,
-    "plugins": ["prettier-plugins-typescript"],
-    "overrides": [
-        {
-            "files": "*.ts",
-            "options": {
-                "parser": "typescript"
-            }
-        }
-    ],
-    "singleQuote": true,
     "semi": false,
-    "trailingComma": "all",
-    "arrowParens": "always"
+    "singleQuote": true,
+    "tabWidth": 2,
+    "useTabs": false,
+    "printWidth": 80
 }

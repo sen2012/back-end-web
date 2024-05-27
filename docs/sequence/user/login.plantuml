@@ -2,7 +2,7 @@
 participant User
 participant Client
 participant Server
-participant Database
+database Database
 
 User -> Client: Provide login information
 Client -> Server: Requires login (username, password)

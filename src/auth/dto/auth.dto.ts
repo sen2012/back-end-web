@@ -1,125 +1,134 @@
-import { ApiProperty } from "@nestjs/swagger";
-import { IsEmail, IsNotEmpty, IsNumber, IsNumberString, IsString, Length, MinLength, Validate } from "class-validator";
+import { ApiProperty } from '@nestjs/swagger'
+import {
+  IsEmail,
+  IsNotEmpty,
+  IsNumber,
+  IsNumberString,
+  IsString,
+  Length,
+  MinLength,
+  Validate,
+} from 'class-validator'
 
 export class AuthDto {
   @ApiProperty({
-    example: "tue@gmail.com",
+    example: 'tue@gmail.com',
   })
   @IsEmail()
   @IsNotEmpty()
-  email: string;
+  email: string
 
   @ApiProperty({
-    example: "123456",
+    example: '123456',
   })
   @IsString()
   @IsNotEmpty()
   @MinLength(6)
-  password: string;
+  password: string
 }
 
 export class RegisterDto {
   @ApiProperty({
-    example: "ete@gmail.com",
+    example: 'ete@gmail.com',
   })
   @IsEmail()
   @IsNotEmpty()
-  email: string;
+  email: string
 
   @ApiProperty({
-    example: "123456",
+    example: '123456',
   })
   @IsString()
   @IsNotEmpty()
   @MinLength(6)
-  password: string;
+  password: string
 
   @ApiProperty({
-    example: "123456",
+    example: '123456',
   })
   @IsString()
   @IsNotEmpty()
-  confirmPassword: string;
+  confirmPassword: string
 
   @ApiProperty({
-    example: "tue",
+    example: 'tue',
   })
   @IsString()
   @IsNotEmpty()
-  name: string;
+  name: string
 
   @ApiProperty({
-    example: "bach dang",
+    example: 'bach dang',
   })
   @IsString()
   @IsNotEmpty()
-  address: string;
+  address: string
 
   @ApiProperty({
-    example: "0761231231",
+    example: '0761231231',
   })
   @IsNumberString()
   @Length(10, 10, { message: 'Phone number must have 10 digits' })
   @IsNotEmpty()
-  phone: string;
+  phone: string
 
   @ApiProperty({
-    example: "thanh pho hue",
+    example: 'thanh pho hue',
   })
   @IsString()
   @IsNotEmpty()
-  province: string;
+  province: string
 }
 
 export class AdminRegisterDto {
   @ApiProperty({
-    example: "tue@gmail.com",
+    example: 'tue@gmail.com',
   })
   @IsEmail()
   @IsNotEmpty()
-  email: string;
+  email: string
 
   @ApiProperty({
-    example: "123456",
+    example: '123456',
   })
   @IsString()
   @IsNotEmpty()
   @MinLength(6)
-  password: string;
+  password: string
 
   @ApiProperty({
-    example: "123456",
+    example: '123456',
   })
   @IsString()
   @IsNotEmpty()
-  confirmPassword: string;
+  confirmPassword: string
 
   @ApiProperty({
-    example: "tue",
+    example: 'tue',
   })
   @IsString()
   @IsNotEmpty()
-  name: string;
+  name: string
 
   @ApiProperty({
-    example: "bach dang",
+    example: 'bach dang',
   })
   @IsString()
   @IsNotEmpty()
-  address: string;
+  address: string
 
   @ApiProperty({
-    example: "0761231231",
+    example: '0761231231',
   })
   @IsNotEmpty()
   @IsNumberString()
   @Length(10, 10, { message: 'Phone number must have 10 digits' })
-  phone: string;
+  phone: string
 
   @ApiProperty({
-    example: "thanh pho hue",
+    example: 'thanh pho hue',
   })
   @IsString()
   @IsNotEmpty()
-  province: string;
+  province: string
 }

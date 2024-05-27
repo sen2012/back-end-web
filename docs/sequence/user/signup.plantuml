@@ -2,7 +2,7 @@
 participant User
 participant Client
 participant Server
-participant Database
+database Database
 
 User -> Client: infor register
 Client -> Server: send register request (username, email, password)

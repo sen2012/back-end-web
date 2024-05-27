@@ -2,7 +2,7 @@
 actor Admin
 participant "Admin Interface" as AdminUI
 participant "Controller" as Controller
-participant "Database" as DB
+database "Database" as DB
 
 Admin -> AdminUI: Select cateogry to update
 AdminUI -> Controller: Send updated cateogry information
