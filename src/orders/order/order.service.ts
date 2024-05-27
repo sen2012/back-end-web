@@ -65,6 +65,26 @@ export class OrderService {
           status: 'complete',
         },
       })
+
+      const orderDetails = await this.prismaService.orderDetail.findMany({
+        where:{
+          order_id: order.id
+        }
+      })
+
+      for (const orderDetail of orderDetails) {
+        await this.prismaService.product.update({
+            where: {
+                id: orderDetail.product_id,
+            },
+            data: {
+                sold: {
+                    increment: orderDetail.quantity,
+                },
+            },
+        });
+      }
+      
       // Trả về đơn hàng sau khi đã được cập nhật
       return updatedOrder
     } catch (error) {
@@ -102,22 +122,24 @@ export class OrderService {
         },
       })
 
-      const OrderDetail = await this.prismaService.orderDetail.findFirst({
+      const OrderDetails = await this.prismaService.orderDetail.findMany({
         where:{
           order_id: order.id
         }
       })
 
-      await this.prismaService.product.update({
-        where:{
-          id: OrderDetail.product_id
-        },
-        data:{
-          quantity:{
-            increment: OrderDetail.quantity
-          }
-        }
-      })
+      for (const orderDetail of OrderDetails) {
+        await this.prismaService.product.update({
+            where: {
+                id: orderDetail.product_id,
+            },
+            data: {
+                quantity: {
+                    increment: orderDetail.quantity,
+                },
+            },
+        });
+      }
 
       // Trả về đơn hàng sau khi đã được cập nhật
       return updatedOrder

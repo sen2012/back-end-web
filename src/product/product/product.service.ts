@@ -24,7 +24,8 @@ export class ProductService {
         unit: createProductDto.unit,
         category_id: createProductDto.category_id,
         create_at: new Date(utcPlus7Time),
-        quantity: createProductDto.quantity
+        quantity: createProductDto.quantity,
+        sold: 0
       },
     })
     return product

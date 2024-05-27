@@ -49,9 +49,6 @@ export class UsersController {
     description: 'update user inform success',
     type: UserDTO,
   })
-  @ApiNotFoundResponse({
-    description: 'not found',
-  })
   @Put('me')
   async updateCurrentUser(
     @GetUser() user: User,

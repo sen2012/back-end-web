@@ -51,6 +51,7 @@ model Product {
   photo        String
   unit         String
   quantity     Int
+  sold         Int?
   create_at    DateTime?
   category_id  Int?
   order_detail OrderDetail[]

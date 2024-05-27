@@ -29,11 +29,11 @@ export class PaymentService {
 
     const payment = newPayment.id
 
-    const OrderDetail = await this.prismaService.orderDetail.findFirst({
-      where:{
-        order_id: incompleteOrder.id
-      }
-    })
+    const orderDetails = await this.prismaService.orderDetail.findMany({
+      where: {
+          order_id: incompleteOrder.id,
+      },
+    });
 
     await this.prismaService.order.update({
       where: {
@@ -46,16 +46,18 @@ export class PaymentService {
       },
     })
 
-    await this.prismaService.product.update({
-      where:{
-        id: OrderDetail.product_id
-      },
-      data:{
-        quantity:{
-          decrement: OrderDetail.quantity
-        }
-      }
-    })
+    for (const orderDetail of orderDetails) {
+      await this.prismaService.product.update({
+          where: {
+              id: orderDetail.product_id,
+          },
+          data: {
+              quantity: {
+                  decrement: orderDetail.quantity,
+              },
+          },
+      });
+    }
 
     await this.prismaService.order.create({
       data: {

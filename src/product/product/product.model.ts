@@ -28,4 +28,7 @@ export class ProductDto implements Product {
 
   @ApiProperty()
   quantity: number
+
+  @ApiProperty()
+  sold: number
 }
