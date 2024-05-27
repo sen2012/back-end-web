@@ -31,6 +31,8 @@
 ```bash
 $ npm install
 
+$ npm install @nestjs/jwt
+
 $ npm install argon2
 
 $ npm install multer
@@ -41,6 +43,15 @@ $ npm install prisma -D
 
 $ npm install class-validator class-transformer @nestjs/swagger
 
+```
+
+## Create file .env 
+
+-- Add:
+
+```bash
+DATABASE_URL="postgresql://postgres:example@localhost:5432/postgres?schema=public"
+JWT_SECRET="Please keep secret"
 ```
 
 ## Running the app
