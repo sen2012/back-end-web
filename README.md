@@ -45,9 +45,13 @@ $ npm install class-validator class-transformer @nestjs/swagger
 
 ```
 
+## Database
+
+using postgresql, need to download: docker deskop and dbeaver
+
 ## Create file .env 
 
--- Add:
+- Add:
 
 ```bash
 DATABASE_URL="postgresql://postgres:example@localhost:5432/postgres?schema=public"
